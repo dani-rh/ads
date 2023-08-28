@@ -1,3 +1,4 @@
+alunos = []
 
 while True:
     # Mostrando o menu principal
@@ -24,8 +25,28 @@ while True:
 
                 # Ler a opcao do menu secundário
                 opcao_secundaria = int(input("Digite uma opção válida: "))
-                if opcao_secundaria >= 0 and opcao_secundaria < 5:
-                    print(f"Voce escolheu a opção {opcao_secundaria}")
+                if opcao_secundaria == 1:
+                    print(f"Opção {opcao_secundaria}. Incluir")
+                    nome = input("Insira o nome do aluno: ")
+                    alunos.append(nome)
+                    input("Pressione ENTER para continuar.")
+                elif opcao_secundaria == 2:
+                    print(f"Opção {opcao_secundaria}. Listar")
+                    if not alunos:
+                        print("Não há estudantes cadastrados")
+                        input("Pressione ENTER para continuar.")
+                    else:
+                        for nome in alunos:
+                            print(nome)
+                        input("Pressione ENTER para continuar.")
+                elif opcao_secundaria == 3:
+                    print(f"Opção {opcao_secundaria}. Atualizar")
+                    print("EM DESENVOLVIMENTO")
+                    input("Pressione ENTER para continuar.")
+                elif opcao_secundaria == 4:
+                    print(f"Opção {opcao_secundaria}. Excluir")
+                    print("EM DESENVOLVIMENTO")
+                    input("Pressione ENTER para continuar.")
                 elif opcao_secundaria == 5:
                     break
                 else:
@@ -33,12 +54,20 @@ while True:
             
     elif opcao == 2:
         print(f"Voce escolheu a opção {opcao}. Professores ")
+        print("EM DESENVOLVIMENTO")
+        input("Pressione ENTER para continuar.")
     elif opcao == 3:
         print(f"Voce escolheu a opção {opcao}. Disciplinas ")
+        print("EM DESENVOLVIMENTO")
+        input("Pressione ENTER para continuar.")
     elif opcao == 4:
         print(f"Voce escolheu a opção {opcao}. Turmas ")
+        print("EM DESENVOLVIMENTO")
+        input("Pressione ENTER para continuar.")
     elif opcao == 5:
-        print(f"Voce escolheu a opção {opcao}. Matriculas ")           
+        print(f"Voce escolheu a opção {opcao}. Matriculas ")
+        print("EM DESENVOLVIMENTO")
+        input("Pressione ENTER para continuar.")
     elif opcao == 0:
         print("Programa encerrado.")
         break
