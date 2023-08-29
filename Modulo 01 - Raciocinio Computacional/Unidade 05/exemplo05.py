@@ -1,0 +1,5 @@
+tupla_com_lista = ([1, 2, 3], [4, 5, 6])
+print(id(tupla_com_lista[0]))
+tupla_com_lista[0].append(9)
+print(tupla_com_lista)
+print(id(tupla_com_lista[0]))
