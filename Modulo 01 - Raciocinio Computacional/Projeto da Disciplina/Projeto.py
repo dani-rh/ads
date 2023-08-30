@@ -8,10 +8,13 @@ while True:
 3. Disciplinas\n\
 4. Turmas\n\
 5. Matrículas\n\
-0. Sair\n ")
-
-    # Ler a opção escolhida pelo usuário
-    opcao = int(input("Digite a opção desejada: "))
+0. Sair\n ")        
+    try:
+        # Ler a opção escolhida pelo usuário
+        opcao = int(input("Digite a opção desejada: "))
+    except:
+        opcao = -1
+        print("Opção selecionada é inválida")
     if opcao == 1:
         print(f"Voce escolheu a opção {opcao}. Estudantes ")
         while True:
