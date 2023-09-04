@@ -1,4 +1,5 @@
 def minha_funcao():
+    x = 10
     print(f"Valor de x dentro da função: {x}")
     
 x = 20
