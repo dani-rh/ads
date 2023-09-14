@@ -1,14 +1,45 @@
 alunos = []
 
-while True:
-    # Mostrando o menu principal
-    print("\nBem-vindo ao menu principal!\n\
+# Funções
+
+# Menu principal
+def menu_principal():
+    print("\nBem-vindo ao menu principal! Escolha a opção desejada\n\
 1. Estudantes\n\
 2. Professores\n\
 3. Disciplinas\n\
 4. Turmas\n\
 5. Matrículas\n\
-0. Sair\n ")        
+0. Sair\n")
+
+# Menu secundário (de operações)
+def menu_operacoes():
+    print(f"\nMenu de navegação - Opção {opcao}. Estudantes\n\
+1. Incluir\n\
+2. Listar\n\
+3. Atualizar\n\
+4. Excluir\n\
+5. Voltar ao menu principal\n ")
+
+# Incluir
+# Opção incluir/cadastrar
+def incluir():
+    codigo = int(input("Insira o código do estudante: "))
+    nome = input("Insira o nome do estudante: ")
+    cpf = int(input("Insira o cpf do estudante (somente números): "))
+    # Dicionario com os dados dos estudantes
+    dados_estudantes = {
+        "Código": codigo,
+        "Nome": nome,
+        "CPF": cpf
+    }
+    alunos.append(dados_estudantes)
+    input("Pressione ENTER para continuar.") 
+    
+    
+while True:
+    # Mostrando o menu principal
+    menu_principal() 
     try:
         # Ler a opção escolhida pelo usuário
         opcao = int(input("Digite a opção desejada: "))
@@ -19,12 +50,7 @@ while True:
         print(f"Voce escolheu a opção {opcao}. Estudantes ")
         while True:
             # Mostrando o menu secundário
-            print(f"\nMenu de navegação - Opção {opcao}. Estudantes\n\
-1. Incluir\n\
-2. Listar\n\
-3. Atualizar\n\
-4. Excluir\n\
-5. Voltar ao menu principal\n ")
+            menu_operacoes()
             # Ler a opcao do menu secundário
             opcao_secundaria = int(input("Digite uma opção válida: "))
             # Opção incluir/cadastrar
