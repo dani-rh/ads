@@ -1,3 +1,5 @@
+import json
+
 # Funções
 # Mostrar menu principal
 def mostrar_menu_principal():
@@ -21,18 +23,34 @@ def mostrar_menu_secundario(menu):
     return int(input("Escolha uma operação: "))
 
 # Função cadastrar estudante
-def cadastrar_estudante(dados_estudantes):
+def cadastrar_estudante(lista_alunos):
     codigo = int(input("Insira o código do estudante: "))
+    while any(aluno["Código"] == codigo for aluno in lista_alunos):
+        print("Código já cadastrado. Por favor, insira um novo código.")
+        codigo = int(input("Insira o código do estudante: "))
     nome = input("Insira o nome do estudante: ")
-    cpf = int(input("Insira o cpf do estudante (somente números): "))
+    cpf = input("Insira o cpf do estudante (somente números): ")
+    while not validar_cpf(cpf) or any(aluno["CPF"] == cpf for aluno in lista_alunos):
+        if any(aluno["CPF"] == cpf for aluno in lista_alunos):
+            print("CPF já cadastrado. Por favor, insira um novo CPF.")
+        else:
+            print("CPF deve conter 11 dígitos e apenas números.")
+        cpf = input("Insira o cpf do estudante (somente números): ")
+        
     # Dicionario com os dados dos estudantes
-    dados_estudantes = {
+    novo_estudante = {
         "Código": codigo,
         "Nome": nome,
         "CPF": cpf
     }
-    alunos.append(dados_estudantes)
+    lista_alunos.append(novo_estudante)
 
+# Função validar CPF
+def validar_cpf(cpf):
+    if len(cpf) != 11 or not cpf.isdigit():
+        return False
+    return True
+    
 # Função listar estudante
 def listar_estudante():
     for nome in alunos:
@@ -51,7 +69,7 @@ def editar_estudante():
     else:
         estudante_editar["Código"] = int(input("Digite o novo código do estudante: "))
         estudante_editar["Nome"] = input("Digite o novo nome do estudante: ")
-        estudante_editar["CPF"] = int(input("Digite o novo cpf do estudante: "))
+        estudante_editar["CPF"] = input("Digite o novo cpf do estudante: ")
 
 # Função excluir
 def excluir_estudante():
@@ -65,8 +83,27 @@ def excluir_estudante():
         print(f"Estudante de código {codigo_excluir} não localizado na lista.")
     else:
         alunos.remove(estudante_remover)
+        
+# Função mostrar lista alunos
+def mostrar_lista_alunos():
+    for estudante in alunos:
+        print(estudante)
 
-alunos = []
+# Função escrever lista em json
+def salvar_json(lista):
+    with open('alunos.json', "w") as arquivo:
+        json.dump(lista, arquivo)
+        
+# Função ler lista em json
+def ler_json():
+    try:
+        with open('alunos.json', "r") as arquivo:
+            alunos = json.load(arquivo)
+            return alunos
+    except FileNotFoundError:
+        return []  
+     
+alunos = ler_json()
 
 while True:
     # Mostrando o menu principal e lendo a opcao escolhida
@@ -80,6 +117,7 @@ while True:
             if operacao == 1:
                 print(f"Opção {operacao}. Incluir")
                 cadastrar_estudante(alunos)
+                salvar_json(alunos)
                 input("Pressione ENTER para continuar.")
         # Opção listar
             elif operacao == 2:
@@ -94,17 +132,17 @@ while True:
             elif operacao == 3:
                 print(f"Opção {operacao}. Atualizar")
                 editar_estudante()
+                salvar_json(alunos)
             # Mostrar lista
-                for estudante in alunos:
-                        print(estudante)
+                mostrar_lista_alunos()
                 input("Pressione ENTER para continuar.")
         # Opção excluir
             elif operacao == 4:
                 print(f"Opção {operacao}. Excluir")
                 excluir_estudante()
+                salvar_json(alunos)
             #Mostrar lista 
-                for estudante in alunos:
-                        print(estudante)
+                mostrar_lista_alunos()
                 input("Pressione ENTER para continuar.")
             elif operacao == 5:
                 break
