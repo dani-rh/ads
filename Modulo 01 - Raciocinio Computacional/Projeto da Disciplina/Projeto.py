@@ -1,6 +1,6 @@
 import json
 
-# Nomes menu principal
+# Dicionário nomes menu principal
 nomes_menu_principal = {
     1: "Estudantes",
     2: "Professores",
@@ -53,22 +53,37 @@ def cadastrar(nome_arquivo):
     novo_cadastro = {}
     
     for campo in campos_cadastro[nome_arquivo]:
-        valor = input(f"Insira o {campo}: ")
-        # Validar CPF para estudantes e professores
-        if campo == "CPF" and nome_arquivo in ["estudantes.json", "professores.json"]:
-            while not validar_cpf(valor) or any(pessoa.get(campo) == valor for pessoa in lista_cadastro):
-                if any(pessoa[campo] == valor for pessoa in lista_cadastro):
-                    print("CPF já cadastrado. Por favor, insira um novo CPF.")
+        while True:
+            valor = input(f"Insira o {campo}: ")
+            
+            if "Código" in campo:
+                try:
+                    valor = int(valor)
+                    if any(cadastro.get(campo) == valor for cadastro in lista_cadastro):
+                        print(f"{campo} já cadastrado. Por favor, insira um novo {campo}.")
+                        continue
+                    novo_cadastro[campo] = valor
+                    break
+                except ValueError:
+                    print(f"{campo} deve ser um número e não pode ficar vazio.")
+            elif campo == "CPF" and nome_arquivo in ["estudantes.json", "professores.json"]:
+                if not validar_cpf(valor) or any(pessoa.get(campo) == valor for pessoa in lista_cadastro):
+                    if any(pessoa[campo] == valor for pessoa in lista_cadastro):
+                        print("CPF já cadastrado. Por favor, insira um novo CPF.")
+                    else:
+                        print("CPF deve conter 11 dígitos e apenas números.")
+                    continue
                 else:
-                    print("CPF deve conter 11 dígitos e apenas números.")
-                valor = input(f"Insira o {campo}: ")
-       # Validar código
-        elif campo == "Código" or "Código" in campo: 
-            while any(cadastro.get(campo) == int(valor) for cadastro in lista_cadastro):
-                print(f"{campo} já cadastrado. Por favor, insira um novo {campo}.")
-                valor = input(f"Insira o {campo}: ")
-                
-        novo_cadastro[campo] = int(valor) if valor.isdigit() else valor
+                    novo_cadastro[campo] = int(valor)
+                    break
+            else:    
+                if valor:
+                    if campo == "Nome" and not valor.isalpha():
+                        print(f"{campo} deve conter apenas letras.")
+                        continue
+                    novo_cadastro[campo] = valor
+                    break
+                print(f"{campo} não pode ficar vazio.")
         
     lista_cadastro.append(novo_cadastro)
     salvar_json(lista_cadastro, nome_arquivo)
@@ -87,17 +102,43 @@ def editar_cadastro(codigo_editar, nome_arquivo):
     lista_cadastro = ler_json(nome_arquivo)
     cadastro_editar = None
     for dados_cadastro in lista_cadastro:
-        if dados_cadastro["Código"] == codigo_editar:
+        if dados_cadastro.get("Código") == codigo_editar:
             cadastro_editar = dados_cadastro
             break
     if cadastro_editar is None:
         print(f"Código {codigo_editar} não localizado na lista.")
-    else:
-        cadastro_editar["Código"] = int(input("Digite o novo código: "))
-        cadastro_editar["Nome"] = input("Digite o novo nome: ")
-        cadastro_editar["CPF"] = input("Digite o novo cpf: ")
-        salvar_json(lista_cadastro, nome_arquivo)
-
+        return
+    
+    for campo in campos_cadastro[nome_arquivo]:
+        while True:
+            valor = input(f"Digite o novo {campo}: ")
+            
+            #Validar CPF estudantes e professores:
+            if campo == "CPF" and nome_arquivo in["estudantes.json", "professores.json"]:
+                while not validar_cpf(valor) or (valor != cadastro_editar["CPF"] and any(pessoa.get(campo) == valor for pessoa in lista_cadastro)):
+                    if any(pessoa[campo] == valor for pessoa in lista_cadastro):
+                        print("CPF já cadastrado. Por favor, insira um novo CPF")
+                    else:
+                        print("CPF deve conter 11 dígitos e apenas números.")
+                    valor = input(f"Digite o novo {campo}: ")
+                cadastro_editar[campo] = int(valor) if valor.isdigit() else valor
+                break
+            # Validar código
+            elif "Código" in campo:
+                while valor != cadastro_editar[campo] and any(cadastro.get(campo) == int(valor) for cadastro in lista_cadastro):
+                    print(f"{campo} já cadastrado. Por favor, insira um novo {campo}.")
+                    valor = input(f"Digite o novo {campo}: ")
+                cadastro_editar[campo] = int(valor) if valor.isdigit() else valor
+                break
+        
+            else:
+                if valor:
+                    cadastro_editar[campo] = int(valor) if valor.isdigit() else valor
+                    break
+                print(f"{campo} não pode ficar vazio.")
+      
+    salvar_json(lista_cadastro, nome_arquivo)
+    
 # Função excluir
 def excluir_cadastro(codigo_excluir, nome_arquivo):
     cadastro_remover = None
@@ -128,7 +169,6 @@ def salvar_json(lista, nome_arquivo):
 def ler_json(nome_arquivo):
     try:
         with open(nome_arquivo, 'r', encoding='utf-8') as arquivo_aberto:
-        # with open('alunos.json', "r") as arquivo:
             lista = json.load(arquivo_aberto)
             return lista
     except FileNotFoundError:
