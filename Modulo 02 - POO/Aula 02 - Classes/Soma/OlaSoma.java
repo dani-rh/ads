@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import javax.sound.sampled.SourceDataLine;
 
-public class OlaMundo {
+public class OlaSoma {
     public static void main(String[] args){
         Scanner leitor = new Scanner(System.in);
         int x, y, z;//variaveis locais
@@ -16,5 +16,7 @@ public class OlaMundo {
         y = leitor.nextInt();
         z = x + y;
         System.out.println("A soma de x + y = "+z);
+
+        leitor.close();
     }
 }
