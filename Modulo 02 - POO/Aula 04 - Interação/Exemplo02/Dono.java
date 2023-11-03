@@ -3,7 +3,7 @@ package Exemplo02;
 public class Dono {
     private String nome;
     private Cao pet;  // Dono está associado com seu Cão
-    private Cao pet2; //Dono está associado com seu Cão 2
+    private Cao pet2;  // Dono está associado com seu Cão
 
     public Dono(String nome) {
         this.nome = nome;
@@ -17,11 +17,11 @@ public class Dono {
         return this.pet;
     }
 
-    public void setPet2(Cao pet){
+    public void setPet2(Cao pet) {
         this.pet2 = pet;
     }
 
-    public Cao getPet2(){
+    public Cao getPet2() {
         return this.pet2;
     }
 
@@ -31,17 +31,17 @@ public class Dono {
     }
 
     public void receberFesta() {
-        System.out.println(this.nome + " está recebendo festa de " +
-                this.pet.getNomeCao());
-        System.out.println(this.nome + "está recebendo festa de " +
-                this.pet2.getNomeCao());
+        System.out.println(this.nome + " está recebendo festa de " + 
+                           this.pet.getNomeCao());
+        System.out.println(this.nome + " está recebendo festa de " + 
+                           this.pet2.getNomeCao());
     }
 
     public static void main(String[] args) {
         Dono maria = new Dono("Maria");
         Cao pipoca = new Cao("Pipoca", "Beagle", "Fêmea", 3,
                 "Enrolada", "Pêlo curtinho");
-        Cao bruce = new Cao("Bruce", "Pug", "Macho", 2, "Caracol", "Pelo curtotinho");
+        Cao bruce = new Cao("Bruce", "Pug", "Macho", 2, "Caracol", "Pêlo curtinho");
         maria.setPet(pipoca); // associa Maria com Pipoca
         maria.setPet2(bruce);
 
