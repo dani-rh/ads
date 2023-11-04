@@ -30,11 +30,11 @@ public class Financiamento{
     }
 
     public double calcularPagamentoMensal(){
-        return (valorImovel/prazoFinanciamento) * (1 + (taxaJurosAnual/12));
+        return (valorImovel/(prazoFinanciamento * 12)) * (1 + (taxaJurosAnual/12));
     }
 
     public double calcularTotalPagamento(){
-        return calcularPagamentoMensal() * prazoFinanciamento;
+        return calcularPagamentoMensal() * (prazoFinanciamento * 12);
     }
 
     public void mostrarDadosFinanciamento(){

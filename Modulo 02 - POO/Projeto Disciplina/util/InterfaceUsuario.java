@@ -23,7 +23,7 @@ public class InterfaceUsuario {
     public int pedirPrazoFinanciamento(){
         int prazoFinanciamento;
         do{
-            System.out.println("Digite o prazo do financiamento em meses: ");
+            System.out.println("Digite o prazo do financiamento em anos: ");
             prazoFinanciamento = scanner.nextInt();
             if(prazoFinanciamento <= 0){
                 System.out.println("Prazo do financiamento deve ser positivo. Tente novamente: ");
@@ -41,6 +41,6 @@ public class InterfaceUsuario {
                 System.out.println("Taxa de juros anual deve ser positiva. Tente novamente: ");
             }
         } while (taxaJurosAnual <= 0);
-        return taxaJurosAnual;
+        return taxaJurosAnual/100;
     }
 }
