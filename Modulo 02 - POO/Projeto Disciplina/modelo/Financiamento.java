@@ -1,12 +1,6 @@
 package modelo;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
-import javax.sound.sampled.SourceDataLine;
-
-public class Financiamento{
+public abstract class Financiamento{
     private double valorImovel;
     private int prazoFinanciamento;
     private double taxaJurosAnual;
@@ -29,10 +23,10 @@ public class Financiamento{
         return taxaJurosAnual;
     }
 
-    public double calcularPagamentoMensal(){
-        return (valorImovel/(prazoFinanciamento * 12)) * (1 + (taxaJurosAnual/12));
-    }
+    // This method is now abstract and must be implemented by all subclasses
+    public abstract double calcularPagamentoMensal();
 
+    // This method uses the abstract method calcularPagamentoMensal but provides a concrete implementation
     public double calcularTotalPagamento(){
         return calcularPagamentoMensal() * (prazoFinanciamento * 12);
     }

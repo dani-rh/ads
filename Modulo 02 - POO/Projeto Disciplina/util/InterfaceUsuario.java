@@ -43,4 +43,37 @@ public class InterfaceUsuario {
         } while (taxaJurosAnual <= 0);
         return taxaJurosAnual/100;
     }
+
+    // New methods to get specific attributes
+    public double pedirAreaConstruida() {
+        System.out.print("Informe a área construída da casa (em metros quadrados): ");
+        return scanner.nextDouble();
+    }
+
+    public double pedirTamanhoTerreno() {
+        System.out.print("Informe o tamanho do terreno (em metros quadrados): ");
+        return scanner.nextDouble();
+    }
+
+    public int pedirNumeroVagasGaragem() {
+        System.out.print("Informe o número de vagas de garagem do apartamento: ");
+        return scanner.nextInt();
+    }
+
+    public int pedirNumeroAndar() {
+        System.out.print("Informe o número do andar do apartamento: ");
+        return scanner.nextInt();
+    }
+
+    public String pedirTipoZona() {
+        System.out.print("Informe o tipo de zona do terreno (residencial/comercial): ");
+        return scanner.next();
+    }
+
+    public void closeScanner() {
+        if(scanner != null) {
+            scanner.close();
+            scanner = null; // avoid future misuse
+        }
+    }
 }
