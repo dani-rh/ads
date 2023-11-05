@@ -6,6 +6,11 @@ import modelo.Terreno;
 import modelo.Financiamento;
 import util.InterfaceUsuario;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -40,6 +45,8 @@ public class Main {
                 financiamento = new Terreno(valorImovel, prazoFinanciamento, taxaJurosAnual, tipoZona);
             }
             financiamentos.add(financiamento);
+            salvarFinanciamentosEmArquivo(financiamentos);
+            lerFinanciamentosDoArquivo();
         }
         
         interfaceUsuario.closeScanner();
@@ -72,5 +79,48 @@ public class Main {
         df.setDecimalFormatSymbols(symbols);
         
         return df.format(value);
+    }
+
+    public static void salvarFinanciamentosEmArquivo(ArrayList<Financiamento> financiamentos) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("financiamentos.txt"))) {
+            for (Financiamento financiamento : financiamentos) {
+                String line = createLineForFinanciamento(financiamento);
+                writer.write(line);
+                writer.newLine();
+            }
+            System.out.println("Financiamentos salvos em arquivo.");
+        } catch (IOException e) {
+            System.out.println("Erro ao escrever no arquivo: " + e.getMessage());
+        }
+    }
+
+    private static String createLineForFinanciamento(Financiamento financiamento) {
+        // Here, you'll format the string to write for each type of Financiamento.
+        // This is a stub, and you'll need to replace it with actual attributes.
+        String line = financiamento.getValorImovel() + "; " +
+                      financiamento.calcularTotalPagamento() + "; " +
+                      financiamento.getTaxaJurosAnual() + "; " +
+                      financiamento.getPrazoFinanciamento();
+
+        if (financiamento instanceof Casa) {
+            Casa casa = (Casa) financiamento;
+            line += "; " + casa.getAreaConstruida() + "; " + casa.getTamanhoTerreno();
+        } else if (financiamento instanceof Apartamento) {
+            Apartamento apartamento = (Apartamento) financiamento;
+            line += "; " + apartamento.getNumeroVagasGaragem() + "; " + apartamento.getNumeroAndar();
+        } else if (financiamento instanceof Terreno) {
+            Terreno terreno = (Terreno) financiamento;
+            line += "; " + terreno.getTipoZona();
+        }
+        return line;
+    }
+
+    public static void lerFinanciamentosDoArquivo() {
+        try {
+            Files.readAllLines(Paths.get("financiamentos.txt")).forEach(System.out::println);
+            System.out.println("Leitura do arquivo de financiamentos completa.");
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
     }
 }
