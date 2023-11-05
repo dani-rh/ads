@@ -1,6 +1,8 @@
 package modelo;
 
-public class Casa extends Financiamento {
+import java.io.Serializable;
+
+public class Casa extends Financiamento implements Serializable {
     private static final double SEGURO_ADICIONAL = 80.0; // Valor fixo do seguro
     private double areaConstruida;
     private double tamanhoTerreno;

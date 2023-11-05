@@ -1,6 +1,8 @@
 package modelo;
 
-public class Terreno extends Financiamento {
+import java.io.Serializable;
+
+public class Terreno extends Financiamento implements Serializable {
     private static final double ACRESCIMO_INADIMPLENCIA = 0.02; // 2% de acréscimo
     private String tipoZona;
 
