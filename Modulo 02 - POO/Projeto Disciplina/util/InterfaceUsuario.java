@@ -58,17 +58,19 @@ public class InterfaceUsuario {
                 taxaJurosAnual = scanner.nextDouble();
                 if (taxaJurosAnual <= 0) {
                     System.out.println("Taxa de juros anual deve ser positiva. Tente novamente: ");
+                } else if (taxaJurosAnual > 1000) { // Verificação de taxa de juros abusiva
+                    System.out.println("Taxa de juros anual não pode ser superior a 1000%. Tente novamente:");
                 } else {
                     inputIsValid = true;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, digite um número válido para a taxa de juros anual.");
-                scanner.next();
+                scanner.next(); // Importante para evitar um loop infinito
             }
         }
-        return taxaJurosAnual / 100;
+        return taxaJurosAnual / 100; // Converte para decimal
     }
-
+    
     public double pedirAreaConstruida() {
         double areaConstruida = 0;
         boolean inputIsValid = false;
