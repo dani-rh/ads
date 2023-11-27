@@ -1,4 +1,4 @@
-package Exemplo02;
+package Exemplo06;
 
 public class Onibus extends Veiculo{
     private int passageiros;

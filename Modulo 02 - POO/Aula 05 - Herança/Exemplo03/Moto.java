@@ -1,4 +1,4 @@
-package Exemplo02;
+package Exemplo03;
 
 public class Moto extends Veiculo{
 
@@ -14,7 +14,7 @@ public class Moto extends Veiculo{
     }
     
     public String imprimir() {
-        return "Marca: " + getMarca() + ", Motor: " + getMotor() + 
-            " de " + getCilindradas() + " cilindradas.";                 
+        return "Marca: " + marca + ", Motor: " + motor + 
+            " de " + cilindradas + " cilindradas.";                 
     }
 }

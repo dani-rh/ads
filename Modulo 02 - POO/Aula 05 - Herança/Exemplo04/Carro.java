@@ -1,4 +1,4 @@
-package Exemplo02;
+package Exemplo04;
 
 public class Carro extends Veiculo{    
     private int portaMalas;

@@ -1,22 +1,12 @@
-package Exemplo01;
+package Exemplo06;
 
-public class Moto {
-    private String marca;
-    private String motor;
+public class Moto extends Veiculo{
+
     private int cilindradas;
     
     public Moto(String marca, String motor, int cilindradas) {
-        this.marca = marca;
-        this.motor = motor;
+        super(marca,motor);
         this.cilindradas = cilindradas;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public String getMotor() {
-        return motor;
     }
 
     public int getCilindradas() {
