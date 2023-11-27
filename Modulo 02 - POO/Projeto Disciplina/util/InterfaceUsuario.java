@@ -58,14 +58,14 @@ public class InterfaceUsuario {
                 taxaJurosAnual = scanner.nextDouble();
                 if (taxaJurosAnual <= 0) {
                     System.out.println("Taxa de juros anual deve ser positiva. Tente novamente: ");
-                } else if (taxaJurosAnual > 1000) { // Verificação de taxa de juros abusiva
+                } else if (taxaJurosAnual > 1000) { // Verificar taxa de juros abusiva
                     System.out.println("Taxa de juros anual não pode ser superior a 1000%. Tente novamente:");
                 } else {
                     inputIsValid = true;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Entrada inválida. Por favor, digite um número válido para a taxa de juros anual.");
-                scanner.next(); // Importante para evitar um loop infinito
+                scanner.next(); // Evita um loop infinito
             }
         }
         return taxaJurosAnual / 100; // Converte para decimal
@@ -118,7 +118,7 @@ public class InterfaceUsuario {
             System.out.print("Informe o número de vagas de garagem do apartamento: ");
             try {
                 numeroVagasGaragem = scanner.nextInt();
-                if (numeroVagasGaragem < 0) { // Assuming zero is a valid input for "no garage"
+                if (numeroVagasGaragem < 0) {
                     System.out.println("O número de vagas de garagem deve ser um valor não negativo. Tente novamente.");
                 } else {
                     inputIsValid = true;
@@ -138,7 +138,7 @@ public class InterfaceUsuario {
             System.out.print("Informe o número do andar do apartamento: ");
             try {
                 numeroAndar = scanner.nextInt();
-                if (numeroAndar < 0) { // Assuming ground floor is 0 and there's no negative floor
+                if (numeroAndar < 0) {
                     System.out.println("O número do andar deve ser um valor não negativo. Tente novamente.");
                 } else {
                     inputIsValid = true;
@@ -169,7 +169,7 @@ public class InterfaceUsuario {
     public void closeScanner() {
         if (scanner != null) {
             scanner.close();
-            scanner = null; // avoid future misuse
+            scanner = null;
         }
     }
 }

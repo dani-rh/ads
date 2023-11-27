@@ -25,10 +25,10 @@ public abstract class Financiamento implements Serializable{
         return taxaJurosAnual;
     }
 
-    // This method is now abstract and must be implemented by all subclasses
+    // Método abstrato que deve ser implementado por todas as subclasses
     public abstract double calcularPagamentoMensal();
 
-    // This method uses the abstract method calcularPagamentoMensal but provides a concrete implementation
+    // Implmentação concreta do método abstrato
     public double calcularTotalPagamento(){
         return calcularPagamentoMensal() * (prazoFinanciamento * 12);
     }
